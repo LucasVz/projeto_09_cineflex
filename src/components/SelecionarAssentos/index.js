@@ -8,7 +8,7 @@ import Assento from "../Assento";
 
 export default function SelecionarAssentos(){
     const {idSessao} = useParams();
-    const [selecionado, setSelecionado] = useState(false);
+   //[guardarId, setGuardarId] = useState([]);
     const [assento, setAssento] = useState([]);
     useEffect(() => {
         const promessa = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`);
@@ -21,25 +21,10 @@ export default function SelecionarAssentos(){
         return <Carregar />
     }
 
-    // function selecionar(id){
-    //     if(selecionado === false){
-    //         setSelecionado(true)
-    //     }
-    //     else{
-    //         setSelecionado(false)
-    //     }
-    // }
+    //function guardarIdArray(){
+        
+    //}
 
-    // function mudarStatus(){
-    //     if(assento.seats.isAvaliable === false){
-    //         foiSelecionado = "assento indisponivel"
-    //     }else if(selecionado === true){
-    //         foiSelecionado = "assento selecionado"
-    //     }else{
-    //         foiSelecionado = "assento"
-    //     }
-    // }
-    // mudarStatus();
     console.log(assento.seats)
     return(
         <>
@@ -47,7 +32,7 @@ export default function SelecionarAssentos(){
             <h1 className="titulo">Selecione o(s) assento(s)</h1>
             <div className="assentos">
                 {assento.seats.map(a=> (
-                    <Assento selecionado ={a.isAvailable} nome = {a.name} />
+                    <Assento id = {a.id} selecionado ={a.isAvailable} nome = {a.name} />
                 ))}
             </div>
 
@@ -68,13 +53,15 @@ export default function SelecionarAssentos(){
 
             <div className="form">
                 <p className="formulario">Nome do comprador:</p>
-                <input type="text" />
+                <input placeholder="Digite seu nome..." className="input-formulario" type="text" />
                 <p className="formulario">CPF do comprador:</p>
-                <input type="text" />
+                <input placeholder="Digite seu CPF..." className="input-formulario" type="text" />
             </div>
 
             <div className="form-botao">
-                <button className="reservar-assento">Reservar assento(s)</button>
+                <Link  to={`/sucesso`}>
+                    <button className="botão-laranja">Reservar assento(s)</button>
+                </Link>
             </div>
             <FooterAssentos assento = {assento} />
         </>

@@ -6,16 +6,24 @@ import Carregar from "../Carregar";
 import FooterAssentos from "../FooterAssentos";
 
 export default function Assento(props){
-    console.log(props)
-    const {selecionado , nome } = props;
+    const {selecionado , nome, id } = props;
     let foiSelecionado= selecionado ? "disponivel" : "indisponivel";
-
-    // if(selecionado === true){
-    //     const [selecionado, setSelecionado] = useState("");
-    // }
-
+    let arrayId = []
+    const [seleciona, setSeleciona] = useState("");
+    function selecionarCadeiras(){
+        if(selecionado === true ){
+            if(seleciona !== "selecionado"){
+                setSeleciona("selecionado")
+                arrayId.push(id)
+                console.log(arrayId)
+            }else{setSeleciona("")}
+    
+        }else{
+            alert("Esse assento não está disponível");
+        }
+    }
     return(
-        <div className={`assento ${foiSelecionado}`}>
+        <div onClick={selecionarCadeiras} className={`assento ${foiSelecionado} ${seleciona}`}>
             <p>{nome}</p>
         </div>
     );
